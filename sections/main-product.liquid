@@ -12,6 +12,19 @@
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
   {%- style -%}
+    button.buy-btn-custom+p {
+      display: none;
+    }
+    
+    button.buy-btn-custom[disabled]+p {
+        display: block;
+    }
+
+    li.product__media-item.is-active {
+        width: 100%;
+        max-width: 100%;
+    }
+    
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -306,7 +319,10 @@
                 block: block,
                 share_link: share_url
               %}
-
+            {% when 'custom-variant-picker' %}
+            {% render 'custom-variant-selector' %}
+            {% when 'buy-btn' %}
+            {% render 'buy-btn' %}
             {%- when 'variant_picker' -%}
               {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
             {%- when 'buy_buttons' -%}
@@ -567,6 +583,120 @@
       ]
     }
   </script>
+  <script>
+    function varCheck(item) {
+      item.addEventListener('change', event => {
+        var checkedValue = null; 
+        const optionsName = [];
+        // checked-inputs-check
+        var inputElements = document.querySelectorAll('.product-options-selctor input');
+        for(var i=0; inputElements[i]; ++i){
+              if(inputElements[i].checked){
+                   checkedValue = inputElements[i].value;
+                   optionsName.push(checkedValue);
+                   break;
+              }
+        }
+        // selected-option-check
+        var inputElements = document.querySelectorAll('.product-options-selctor select option');
+        for(var i=0; inputElements[i]; ++i){
+              if(inputElements[i].selected){
+                   checkedValue = inputElements[i].value;
+                   optionsName.push(checkedValue);
+                   break;
+              }
+        }
+        console.log(optionsName);
+        document.querySelectorAll('ul.variant-information-ul li').forEach(li => {
+            let liText = li.innerText;
+            for (let i = 0; i < optionsName.length; i++) {
+                console.log(liText)
+                if (liText.indexOf(optionsName[i]) === -1) {
+                  return false;
+                }
+              }
+            var elems = document.querySelectorAll("ul.variant-information-ul li");
+            
+            [].forEach.call(elems, function(el) {
+                el.classList.remove("active-variant");
+            });
+            
+            li.classList.add("active-variant");
+            let activeLI = document.querySelector(".active-variant");
+            if (activeLI) {
+                let activeVarTitle = activeLI.innerText;
+                let activevarImage = activeLI.getAttribute('data-select-image');
+                if (activevarImage) {
+                  var slides = document.querySelectorAll("li.product__media-item");
+              
+                  [].forEach.call(slides, function(slide) {
+                      let activeImage = slide.getAttribute('data-image-url');
+                      if ( activevarImage === activeImage ) {
+                        slide.style.display = 'block';
+                        slide.classList.add('is-active');
+                      } else {
+                        slide.style.display = 'none';
+                        slide.classList.remove('is-active');
+                      }
+                  });
+                }
+                if (activeVarTitle.includes('Unselected')) {
+                } else {
+                    let varId = activeLI.getAttribute('data-var-id');
+                    document.querySelector("button.buy-btn-custom").setAttribute("data-id",varId);
+                    document.querySelector("button.buy-btn-custom").removeAttribute("disabled");
+                    window.history.replaceState(null, null, `?variant=${varId}`);
+                }
+            }
+              return true; 
+        })
+      })
+    }
+    document.querySelectorAll('.product-options-selctor input , .product-options-selctor select').forEach(item => {
+      varCheck(item)
+    })
+    document.querySelector("button.buy-btn-custom").addEventListener("click",function() {
+      let varId = this.getAttribute("data-id");
+      let quantity = document.querySelector(".quantity__input").value;
+      if (varId) {
+        console.log(varId)
+        let formData = '';
+      if (varId === "45093335957820") {
+           formData = {
+             'items': [{
+              'id': varId,
+              'quantity': quantity,
+                 'properties' : {
+                  'Gift': 'Free Soft Winter Jacket'
+                }
+              }]
+            };
+        } else {
+           formData = {
+             'items': [{
+              'id': varId,
+              'quantity': quantity
+              }]
+            };
+        }
+            
+            fetch(window.Shopify.routes.root + 'cart/add.json', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(formData)
+            })
+            .then(response => {
+              window.location.href = "/cart"
+              return response.json();
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+          }); 
+      }
+    })
+  </script>
 </section>
 
 {% schema %}
@@ -693,6 +823,16 @@
     {
       "type": "quantity_selector",
       "name": "t:sections.main-product.blocks.quantity_selector.name",
+      "limit": 1
+    },
+    {
+      "type": "buy-btn",
+      "name": "Buy Button Custom",
+      "limit": 1
+    },
+    {
+      "type": "custom-variant-picker",
+      "name": "Custom Option Selector",
       "limit": 1
     },
     {

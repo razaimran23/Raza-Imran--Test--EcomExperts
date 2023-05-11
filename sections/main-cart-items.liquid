@@ -6,6 +6,8 @@
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
+  .cart-item[data-item="Soft Winter Jacket"] quantity-input.quantity.cart-quantity {display: none;}
+  
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -70,7 +72,7 @@
 
             <tbody>
               {%- for item in cart.items -%}
-                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}" data-item="{{ item.title }}">
                   <td class="cart-item__media">
                     {% if item.image %}
                       {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
@@ -222,6 +224,8 @@
                       <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">
                         {{ 'products.product.quantity.label' | t }}
                       </label>
+                      {% if item.title contains "Soft Winter Jacket" %}
+                      {% else %}
                       <quantity-input class="quantity cart-quantity">
                         <button class="quantity__button no-js-hidden" name="minus" type="button">
                           <span class="visually-hidden">
@@ -254,6 +258,7 @@
                           {% render 'icon-plus' %}
                         </button>
                       </quantity-input>
+                      {% endif %}
 
                       <cart-remove-button
                         id="Remove-{{ item.index | plus: 1 }}"
@@ -353,7 +358,85 @@
     </p>
   </form>
 </cart-items>
+<script>
+function load_Items (e) {
+  var con = document.querySelector('table.cart-items tbody')
+  ,   xhr = new XMLHttpRequest();
 
+  xhr.onreadystatechange = function (e) { 
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let items = xhr.responseText;
+        parser = new DOMParser();
+        var doc = parser.parseFromString(items, "text/html");
+        var cartItems = doc.querySelector("table.cart-items tbody").innerHTML;
+      con.innerHTML = cartItems;
+    }
+  }
+
+  let url = window.location.href;
+  xhr.open("GET", url, true);
+  xhr.setRequestHeader('Content-type', 'text/html');
+  xhr.send();
+}
+  function bundleCheck() {
+  fetch("/cart.json")
+  .then((res)=> {
+      return res.json();
+  }).then((data)=> {
+      let item = data.items;
+      for (let index = 0; index < item.length; index++) {
+          if (item[index].title === "Leather Bag - Black / Medium") {
+              let formData = {
+               'updates': {
+                  '45093323342140': 1
+                }
+              };
+              fetch(window.Shopify.routes.root + 'cart/update.js', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+              })
+              .then(response => {
+                return response.json();
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+            });
+              return true;
+          } else {
+            let formData = {
+               'updates': {
+                  '45093323342140': 0
+                }
+              };
+              fetch(window.Shopify.routes.root + 'cart/update.js', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+              })
+              .then(response => {
+                return response.json();
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+            });
+              return true;
+          }
+      }
+  })
+  }
+  bundleCheck()
+  document.querySelector("tr.cart-item[data-item='Leather Bag - Black / Medium'] .quantity__input").addEventListener("change",function(){
+    bundleCheck()
+  })
+  document.querySelector("tr.cart-item[data-item='Leather Bag - Black / Medium'] cart-remove-button").addEventListener("click",function(){
+    bundleCheck()
+  })
+</script>
 {% schema %}
 {
   "name": "t:sections.main-cart-items.name",
