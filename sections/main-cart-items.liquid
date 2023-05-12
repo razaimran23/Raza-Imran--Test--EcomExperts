@@ -381,8 +381,8 @@ function load_Items (e) {
 }
   function bundleCheck() {
       {% for item in cart.items %}
-        let hhhhh = {{item.title}};
-          {% if item.product.title contains 'Leather Bag - Black / Medium' %}
+        let check = {{item.title}};
+          {% if item.title contains 'Leather Bag - Black / Medium' %}
               let formData = {
                'updates': {
                   '45062083412257': 1
