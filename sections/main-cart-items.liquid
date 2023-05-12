@@ -375,7 +375,7 @@ function renderSection() {
   function bundleCheck() {
       {% for item in cart.items %}
           {% if item.title contains 'Leather Bag - Black / Medium' %}
-              let formData--{{forloop.index}} = {
+              let formData_{{forloop.index}} = {
                'updates': {
                   '45062083412257': 1
                 }
@@ -386,7 +386,7 @@ function renderSection() {
                 headers: {
                   'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData--{{forloop.index}})
+                body: JSON.stringify(formData_{{forloop.index}})
               })
               .then(response => {
                 renderSection()
@@ -398,7 +398,7 @@ function renderSection() {
             });
             {% break %}
             {% else %}
-            let formData--{{forloop.index}} = {
+            let formData_{{forloop.index}} = {
                'updates': {
                   '45062083412257': 0
                 }
@@ -408,7 +408,7 @@ function renderSection() {
                 headers: {
                   'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData--{{forloop.index}})
+                body: JSON.stringify(formData_{{forloop.index}})
               })
               .then(response => {
                 renderSection()
