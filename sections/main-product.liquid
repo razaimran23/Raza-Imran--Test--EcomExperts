@@ -655,6 +655,7 @@
     document.querySelectorAll('.product-options-selctor input , .product-options-selctor select').forEach(item => {
       varCheck(item)
     })
+    if (document.querySelector("button.buy-btn-custom")) {
     document.querySelector("button.buy-btn-custom").addEventListener("click",function() {
       let varId = this.getAttribute("data-id");
       let quantity = document.querySelector(".quantity__input").value;
@@ -696,6 +697,7 @@
           }); 
       }
     })
+    }
   </script>
 </section>
 
