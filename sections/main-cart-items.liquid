@@ -401,7 +401,7 @@ function load_Items (e) {
                 body: JSON.stringify(formData)
               })
               .then(response => {
-                document.querySelector("button.buy-btn-custom").setAttribute("src",discount);
+                document.querySelector(".apply-discount").setAttribute("src",discount);
                 return response.json();
               })
               .catch((error) => {
