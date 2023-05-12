@@ -381,7 +381,6 @@ function load_Items (e) {
 }
   function bundleCheck() {
       {% for item in cart.items %}
-        let checkLiquic = {{item.title}};
           {% if item.title contains 'Leather Bag - Black / Medium' %}
               let formData = {
                'updates': {
