@@ -380,13 +380,8 @@ function load_Items (e) {
   xhr.send();
 }
   function bundleCheck() {
-  fetch("/cart.json")
-  .then((res)=> {
-      return res.json();
-  }).then((data)=> {
-      let item = data.items;
-      for (let index = 0; index < item.length; index++) {
-          if (item[index].title === "Leather Bag - Black / Medium") {
+      {% for item in cart.items %}
+          {% if item.product.title != 'Leather Bag - Black / Medium' %}
               let formData = {
                'updates': {
                   '45062083412257': 1
@@ -407,8 +402,8 @@ function load_Items (e) {
               .catch((error) => {
                 console.error('Error:', error);
             });
-              return true;
-          } else {
+            {% break %}
+            {% else %}
             let formData = {
                'updates': {
                   '45062083412257': 0
@@ -427,10 +422,8 @@ function load_Items (e) {
               .catch((error) => {
                 console.error('Error:', error);
             });
-              return true;
-          }
-      }
-  })
+            {% endif %}
+            {% endfor %}
   }
   bundleCheck()
   document.querySelector("tr.cart-item[data-item='Leather Bag - Black / Medium'] .quantity__input").addEventListener("change",function(){
