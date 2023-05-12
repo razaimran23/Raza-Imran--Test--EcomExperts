@@ -358,7 +358,7 @@
     </p>
   </form>
 </cart-items>
-<iframe class="apply-discount" src="" style=" display: none; "></iframe>
+<!-- <iframe class="apply-discount" src="" style=" display: none; "></iframe> -->
 <script>
 function load_Items (e) {
   var con = document.querySelector('table.cart-items tbody')
@@ -396,7 +396,7 @@ function load_Items (e) {
                 body: JSON.stringify(formData)
               })
               .then(response => {
-                document.querySelector(".apply-discount").setAttribute("src",discount);
+                // document.querySelector(".apply-discount").setAttribute("src",discount);
                 return response.json();
               })
               .catch((error) => {
