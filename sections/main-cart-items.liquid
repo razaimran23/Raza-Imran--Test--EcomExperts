@@ -428,8 +428,8 @@ function renderSection() {
     })
   })
   document.querySelectorAll('cart-remove-button').forEach(item => {
-    alert("changed")
     item.addEventListener('click', event => {
+      alert("click")
       bundleCheck()
       renderSection()
     })
