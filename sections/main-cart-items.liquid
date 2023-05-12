@@ -392,6 +392,7 @@ function load_Items (e) {
                   '45062083412257': 1
                 }
               };
+              let discount = "https://raza-test-ecomexperts.myshopify.com/discount/YW5FDQJP3N6T?redirect=%2Fproducts%2Fdark-winter-jacket"
               fetch(window.Shopify.routes.root + 'cart/update.js', {
                 method: 'POST',
                 headers: {
@@ -400,6 +401,7 @@ function load_Items (e) {
                 body: JSON.stringify(formData)
               })
               .then(response => {
+                document.querySelector("button.buy-btn-custom").setAttribute("src",discount);
                 return response.json();
               })
               .catch((error) => {
