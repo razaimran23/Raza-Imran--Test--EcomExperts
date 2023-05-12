@@ -360,25 +360,6 @@
 </cart-items>
 <!-- <iframe class="apply-discount" src="" style=" display: none; "></iframe> -->
 <script>
-function load_Items (e) {
-  var con = document.querySelector('table.cart-items tbody')
-  ,   xhr = new XMLHttpRequest();
-
-  xhr.onreadystatechange = function (e) { 
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      let items = xhr.responseText;
-        parser = new DOMParser();
-        var doc = parser.parseFromString(items, "text/html");
-        var cartItems = doc.querySelector("table.cart-items tbody").innerHTML;
-      con.innerHTML = cartItems;
-    }
-  }
-
-  let url = window.location.href;
-  xhr.open("GET", url, true);
-  xhr.setRequestHeader('Content-type', 'text/html');
-  xhr.send();
-}
   function bundleCheck() {
       {% for item in cart.items %}
           {% if item.title contains 'Leather Bag - Black / Medium' %}
