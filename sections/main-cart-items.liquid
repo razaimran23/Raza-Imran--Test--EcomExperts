@@ -381,6 +381,7 @@ function load_Items (e) {
 }
   function bundleCheck() {
       {% for item in cart.items %}
+        let hhhhh = {{item.product.title}};
           {% if item.product.title contains 'Leather Bag - Black / Medium' %}
               let formData = {
                'updates': {
