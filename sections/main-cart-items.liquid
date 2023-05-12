@@ -368,7 +368,7 @@ function renderSection() {
       parser = new DOMParser();
       var doc = parser.parseFromString(section, "text/html");
       var cartItems = doc.querySelector("cart-items.page-width").innerHTML;
-      console.log(cartItems);
+      // console.log(cartItems);
       document.querySelector("cart-items.page-width").innerHTML = cartItems;
   })
 }
