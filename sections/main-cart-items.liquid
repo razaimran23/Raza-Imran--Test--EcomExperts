@@ -360,6 +360,18 @@
 </cart-items>
 <!-- <iframe class="apply-discount" src="" style=" display: none; "></iframe> -->
 <script>
+function renderSection() {
+  fetch(window.location.pathname + "?sections=main-cart-items")
+  .then(res => res.json())
+  .then((data)=> {
+      let section = data['main-cart-items'];
+      parser = new DOMParser();
+      var doc = parser.parseFromString(section, "text/html");
+      var cartItems = doc.querySelector("cart-items.page-width").innerHTML;
+      console.log(cartItems);
+      document.querySelector("cart-items.page-width").innerHTML = cartItems;
+  })
+}
   function bundleCheck() {
       {% for item in cart.items %}
           {% if item.title contains 'Leather Bag - Black / Medium' %}
@@ -377,6 +389,7 @@
                 body: JSON.stringify(formData)
               })
               .then(response => {
+                renderSection()
                 // document.querySelector(".apply-discount").setAttribute("src",discount);
                 return response.json();
               })
@@ -398,6 +411,7 @@
                 body: JSON.stringify(formData)
               })
               .then(response => {
+                renderSection()
                 return response.json();
               })
               .catch((error) => {
