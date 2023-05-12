@@ -1,5 +1,5 @@
 <div class="button-buy-custom">
-  {% if product.handle contains 'soft-winter-jacket' %}
+  {% if product.title contains 'Soft Winter Jacket' %}
     This product is only available with the purchase of <a href="/products/leather-bag?variant=45119760826657">Leather Bag</a>
   {% else %}
   <button class="buy-btn-custom" {% if product.selected_or_first_available_variant.title contains "Unselected" %}disabled{% endif %}{% unless product.selected_or_first_available_variant.title contains 'Unselected' %}data-id="{{ product.selected_or_first_available_variant.id }}"{% endunless %}>
