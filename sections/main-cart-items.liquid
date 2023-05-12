@@ -417,7 +417,6 @@ function load_Items (e) {
                 body: JSON.stringify(formData)
               })
               .then(response => {
-                location.reload;
                 return response.json();
               })
               .catch((error) => {
