@@ -421,13 +421,17 @@ function renderSection() {
   }
   bundleCheck()
   renderSection()
-  document.querySelector("tr.cart-item[data-item='Leather Bag - Black / Medium'] .quantity__input").addEventListener("change",function(){
-    bundleCheck()
-    renderSection()
+  document.querySelectorAll('.quantity__input').forEach(item => {
+    item.addEventListener('change', event => {
+      bundleCheck()
+      renderSection()
+    })
   })
-  document.querySelector("tr.cart-item[data-item='Leather Bag - Black / Medium'] cart-remove-button").addEventListener("click",function(){
-    bundleCheck()
-    renderSection()
+  document.querySelectorAll('cart-remove-button').forEach(item => {
+    item.addEventListener('click', event => {
+      bundleCheck()
+      renderSection()
+    })
   })
 </script>
 </cart-items>
