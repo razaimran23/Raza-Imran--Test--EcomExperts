@@ -103,7 +103,7 @@
       <select id="ProductSelect-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
         {%- for value in option.values -%}
           {% assign checkValue = value | handleize %}
-          <option value="{{ value | escape }}"{% if option.selected_value == value and checkValue != 'unselected' %} selected="selected" {% elsif checkValue contains 'unselected' %} selected="selected" disabled{% endif %}>
+          <option value="{{ value | escape }}"{% if checkValue contains 'unselected' %} selected="selected" disabled{% endif %}>
             {{ value | escape }}
           </option>
         {%- endfor -%}
