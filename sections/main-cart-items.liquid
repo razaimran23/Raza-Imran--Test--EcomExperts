@@ -421,11 +421,14 @@ function renderSection() {
             {% endfor %}
   }
   bundleCheck()
+  renderSection()
   document.querySelector("tr.cart-item[data-item='Leather Bag - Black / Medium'] .quantity__input").addEventListener("change",function(){
     bundleCheck()
+    renderSection()
   })
   document.querySelector("tr.cart-item[data-item='Leather Bag - Black / Medium'] cart-remove-button").addEventListener("click",function(){
     bundleCheck()
+    renderSection()
   })
 </script>
 {% schema %}
