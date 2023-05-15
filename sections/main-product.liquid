@@ -672,6 +672,24 @@
                 }
               }]
             };
+          let formData_gift = {
+               'updates': {
+                  '45062083412257': 1
+                }
+              };
+              fetch(window.Shopify.routes.root + 'cart/update.js', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData_gift)
+              })
+              .then(response => {
+                return response.json();
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+            });
         } else {
            formData = {
              'items': [{
