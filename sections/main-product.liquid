@@ -686,6 +686,7 @@
                 body: JSON.stringify(formData_gift)
               })
               .then(response => {
+                window.location.href = "/cart"
                 return response.json();
               })
               .catch((error) => {
