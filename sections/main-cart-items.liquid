@@ -235,7 +235,6 @@
                         </button>
                         <input
                           class="quantity__input"
-                          onchange="render()"
                           data-quantity-variant-id="{{ item.variant.id }}"
                           type="number"
                           name="updates[]"
@@ -262,7 +261,6 @@
                       {% endif %}
 
                       <cart-remove-button
-                        onclick="render()"
                         id="Remove-{{ item.index | plus: 1 }}"
                         data-index="{{ item.index | plus: 1 }}"
                       >
@@ -423,10 +421,10 @@ function renderSection() {
   }
   bundleCheck()
   renderSection()
-  function render() {
-    bundleCheck()
-    renderSection()
-  } 
+  // function render() {
+  //   bundleCheck()
+  //   renderSection()
+  // } 
   // window.addEventListener('DOMContentLoaded', function() {
   //     document.querySelectorAll('.quantity__input').forEach(item => {
   //     item.addEventListener('change', event => {
