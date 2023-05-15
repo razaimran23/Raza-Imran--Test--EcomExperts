@@ -68,12 +68,6 @@
 </ul>
 <div class="product-options-selctor">
   {%- unless product.has_only_default_variant -%}
-  {% assign variantImage = '' %}
-  {% for variant in product.variants %}
-    {%  assign varImage = variant.image | img_url: 'master' %}
-    {% assign variantImage = variantImage | append: varImage | append: ", " %}
- {% endfor%}
-    {% assign newImage = variantImage | split: ", " %}
   {%- for option in product.options_with_values -%}
   {% assign optionHandleize = option.name | handleize %}
     {%- if optionHandleize == 'color' -%}
@@ -92,6 +86,8 @@
             {%- endunless -%}
           {%- endif -%}
           {% assign myIndex = forloop.index %}
+          {% for variant in product.variants %}
+          {% if variant.title contains value %}
           <input type="radio"
             style="display: none"
             {% if option.selected_value == value %} checked="checked"{% endif %}
@@ -100,7 +96,10 @@
             data-index="option{{ forloop.index }}"
             name="{{ option.name | handleize }}"
             id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
-          <label style=" background: {{ value | handleize }}; " for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}"></label>
+            <label style=" background: {% if variant.image != blank %}url({{ variant.image | img_url: "master" }}){% else %}{{ value | handleize }}{% endif %}; " for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}"></label>
+            {% break %}
+            {% endif %}
+            {% endfor %}
         {%- endfor -%}
         </div>
       </fieldset>
