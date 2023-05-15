@@ -427,13 +427,11 @@ function renderSection() {
   window.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.quantity__input').forEach(item => {
       item.addEventListener('change', event => {
-        bundleCheck()
         renderSection()
       })
     })
     document.querySelectorAll('cart-remove-button').forEach(item => {
       item.addEventListener('click', event => {
-        bundleCheck()
         renderSection()
       })
     })
