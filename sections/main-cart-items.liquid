@@ -357,9 +357,7 @@
       {{ 'accessibility.loading' | t }}
     </p>
   </form>
-<!-- <iframe class="apply-discount" src="" style=" display: none; "></iframe> -->
-<div class="run-js">
-  {% comment %}
+{% comment %}
 <script>
   function bundleCheck() {
       {% for item in cart.items %}
@@ -428,7 +426,6 @@
   // })
 </script>
 {% endcomment %}
-</div>
 </cart-items>
 <script>
   function renderSection() {
@@ -447,6 +444,46 @@
     renderSection()
           document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();
     }
+
+  const checkRemove = setInterval(function() {
+    let buttonRemove = document.querySelectorAll(".cart-item[data-item='Leather Bag - Black / Medium'] a.button");
+    let toBeRemoved = document.querySelectorAll(".cart-item[data-item='Soft Winter Jacket'] a.button");
+        console.log(toBeRemoved.length)
+    if (buttonRemove.length) {
+        if (toBeRemoved.length) {
+            buttonRemove[0].addEventListener("click",function(){
+                setTimeout(function(){
+                let formData = {
+                   'updates': {
+                      '45062083412257': 0
+                    }
+                  };
+                  fetch(window.Shopify.routes.root + 'cart/update.js', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                  })
+                  .then(response => {
+                      const itemCheck = setInterval(function() {
+                          let item = document.querySelectorAll(".cart-item[data-item='Soft Winter Jacket']");
+                          if (item.length) {
+                            item[0].style.display = 'none';
+                              clearInterval(itemCheck)
+                          }
+                      },500)
+                    return response.json();
+                  })
+                  .catch((error) => {
+                    console.error('Error:', error);
+                });
+                },1000)
+            })
+            clearInterval(checkRemove);
+        }
+    }
+},500)
 </script>
 {% schema %}
 {
