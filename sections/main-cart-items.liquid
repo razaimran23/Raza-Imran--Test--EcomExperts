@@ -263,7 +263,7 @@
 
                       <cart-remove-button
                       {% if item.title contains "Leather Bag - Black / Medium" %}
-                        onclick="remove()"
+                        onclick="bundleCheck()"
                       {% endif %}
                         id="Remove-{{ item.index | plus: 1 }}"
                         data-index="{{ item.index | plus: 1 }}"
@@ -391,25 +391,25 @@
             {% break %}
             {% else %}
           renderSection()
-          document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();            // let formData_{{forloop.index}} = {
-            //    'updates': {
-            //       '45062083412257': 0
-            //     }
-            //   };
-            //   fetch(window.Shopify.routes.root + 'cart/update.js', {
-            //     method: 'POST',
-            //     headers: {
-            //       'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(formData_{{forloop.index}})
-            //   })
-            //   .then(response => {
-            //     renderSection()
-            //     return response.json();
-            //   })
-            //   .catch((error) => {
-            //     console.error('Error:', error);
-            // });
+          let formData_{{forloop.index}} = {
+               'updates': {
+                  '45062083412257': 0
+                }
+              };
+              fetch(window.Shopify.routes.root + 'cart/update.js', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData_{{forloop.index}})
+              })
+              .then(response => {
+                renderSection()
+                return response.json();
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+            });
             {% endif %}
             {% endfor %}
   }
