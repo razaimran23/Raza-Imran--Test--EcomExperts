@@ -363,6 +363,7 @@
   </form>
 <!-- <iframe class="apply-discount" src="" style=" display: none; "></iframe> -->
 <div class="run-js">
+  {% comment %}
 <script>
   function bundleCheck() {
       {% for item in cart.items %}
@@ -430,6 +431,7 @@
   //   })
   // })
 </script>
+{% endcomment %}
 </div>
 </cart-items>
 <script>
