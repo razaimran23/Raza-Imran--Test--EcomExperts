@@ -390,10 +390,8 @@
             });
             {% break %}
             {% else %}
+              document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();
               renderSection()
-            setInterval(function() {              
-              document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();   
-          },1000)
             // let formData_{{forloop.index}} = {
             //    'updates': {
             //       '45062083412257': 0
