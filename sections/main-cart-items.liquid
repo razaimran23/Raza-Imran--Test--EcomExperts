@@ -367,6 +367,7 @@
   function bundleCheck() {
       {% for item in cart.items %}
           {% if item.title contains 'Leather Bag - Black / Medium' %}
+            alert("run1 ")
               let formData_{{forloop.index}} = {
                'updates': {
                   '45062083412257': 1
