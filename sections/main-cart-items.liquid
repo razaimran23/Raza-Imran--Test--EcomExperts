@@ -235,7 +235,6 @@
                         </button>
                         <input
                           class="quantity__input"
-                          onchange="bundleCheck()"
                           data-quantity-variant-id="{{ item.variant.id }}"
                           type="number"
                           name="updates[]"
@@ -269,9 +268,6 @@
                           href="{{ item.url_to_remove }}"
                           class="button button--tertiary"
                           aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
-                          {% if item.title contains "Leather Bag - Black / Medium" %}
-                          onclick="bundleCheck()"
-                          {% endif %}
                         >
                           {% render 'icon-remove' %}
                         </a>
