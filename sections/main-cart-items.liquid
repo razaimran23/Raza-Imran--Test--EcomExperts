@@ -392,7 +392,7 @@ function renderSection() {
               .then(response => {
                 renderSection()
                 // document.querySelector(".apply-discount").setAttribute("src",discount);
-                return response.json();
+                console.log(response.json());
               })
               .catch((error) => {
                 console.error('Error:', error);
@@ -413,7 +413,7 @@ function renderSection() {
               })
               .then(response => {
                 renderSection()
-                return response.json();
+                console.log(response.json());
               })
               .catch((error) => {
                 console.error('Error:', error);
