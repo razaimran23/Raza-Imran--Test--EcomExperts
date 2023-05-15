@@ -674,7 +674,8 @@
             };
           let formData_gift = {
                'updates': {
-                  '45062083412257': 1
+                  '45062083412257': 1,
+                   varId: quantity
                 }
               };
               fetch(window.Shopify.routes.root + 'cart/update.js', {
@@ -697,7 +698,6 @@
               'quantity': quantity
               }]
             };
-        }
             
             fetch(window.Shopify.routes.root + 'cart/add.json', {
               method: 'POST',
@@ -712,7 +712,9 @@
             })
             .catch((error) => {
               console.error('Error:', error);
-          }); 
+          });
+        }
+          
       }
     })
     }
