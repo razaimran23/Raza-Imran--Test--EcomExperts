@@ -399,25 +399,26 @@ function renderSection() {
             });
             {% break %}
             {% else %}
-            let formData_{{forloop.index}} = {
-               'updates': {
-                  '45062083412257': 0
-                }
-              };
-              fetch(window.Shopify.routes.root + 'cart/update.js', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData_{{forloop.index}})
-              })
-              .then(response => {
-                renderSection()
-                return response.json();
-              })
-              .catch((error) => {
-                console.error('Error:', error);
-            });
+            document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();
+            // let formData_{{forloop.index}} = {
+            //    'updates': {
+            //       '45062083412257': 0
+            //     }
+            //   };
+            //   fetch(window.Shopify.routes.root + 'cart/update.js', {
+            //     method: 'POST',
+            //     headers: {
+            //       'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify(formData_{{forloop.index}})
+            //   })
+            //   .then(response => {
+            //     renderSection()
+            //     return response.json();
+            //   })
+            //   .catch((error) => {
+            //     console.error('Error:', error);
+            // });
             {% endif %}
             {% endfor %}
   }
