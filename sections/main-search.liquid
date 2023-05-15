@@ -218,7 +218,7 @@
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
                         {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
-                      {% if item.title == "Soft Winter Jacket" %} 
+                      {% if item.title == "Soft Winter Jacket" %}
                       {% else %}
                       {% render 'card-product',
                           card_product: item,
