@@ -425,9 +425,6 @@ function renderSection() {
             {% endfor %}
   }
   bundleCheck()
-  function remove() {
-          document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();
-  }
   // window.addEventListener('DOMContentLoaded', function() {
   //     document.querySelectorAll('.quantity__input').forEach(item => {
   //     item.addEventListener('change', event => {
@@ -445,6 +442,11 @@ function renderSection() {
 </script>
 </div>
 </cart-items>
+<script>
+  function remove() {
+          document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();
+    }
+</script>
 {% schema %}
 {
   "name": "t:sections.main-cart-items.name",
