@@ -364,18 +364,6 @@
 <!-- <iframe class="apply-discount" src="" style=" display: none; "></iframe> -->
 <div class="run-js">
 <script>
-function renderSection() {
-  fetch(window.location.pathname + "?sections=main-cart-items")
-  .then(res => res.json())
-  .then((data)=> {
-      let section = data['main-cart-items'];
-      parser = new DOMParser();
-      var doc = parser.parseFromString(section, "text/html");
-      var cartItems = doc.querySelector("cart-items.page-width").innerHTML;
-      // console.log(cartItems);
-      document.querySelector("cart-items.page-width").innerHTML = cartItems;
-  })
-}
   function bundleCheck() {
       {% for item in cart.items %}
           {% if item.title contains 'Leather Bag - Black / Medium' %}
@@ -402,6 +390,7 @@ function renderSection() {
             });
             {% break %}
             {% else %}
+          renderSection()
           document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();            // let formData_{{forloop.index}} = {
             //    'updates': {
             //       '45062083412257': 0
@@ -443,7 +432,20 @@ function renderSection() {
 </div>
 </cart-items>
 <script>
+  function renderSection() {
+  fetch(window.location.pathname + "?sections=main-cart-items")
+  .then(res => res.json())
+  .then((data)=> {
+      let section = data['main-cart-items'];
+      parser = new DOMParser();
+      var doc = parser.parseFromString(section, "text/html");
+      var cartItems = doc.querySelector("cart-items.page-width").innerHTML;
+      // console.log(cartItems);
+      document.querySelector("cart-items.page-width").innerHTML = cartItems;
+  })
+  }
   function remove() {
+    renderSection()
           document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();
     }
 </script>
