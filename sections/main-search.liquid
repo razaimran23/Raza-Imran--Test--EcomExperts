@@ -213,13 +213,10 @@
                   {%- if forloop.index > 2 -%}
                     {%- assign lazy_load = true -%}
                   {%- endif -%}
-
-                  <li class="grid__item">
+                  <li class="grid__item" {% if item.title == "Soft Winter Jacket" %}style="display: none"{% endif %}>
                     {%- case item.object_type -%}
                       {%- when 'product' -%}
                         {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
-                      {% if item.title == "Soft Winter Jacket" %}
-                      {% else %}
                       {% render 'card-product',
                           card_product: item,
                           media_aspect_ratio: section.settings.image_ratio,
@@ -228,7 +225,6 @@
                           show_rating: section.settings.show_rating,
                           lazy_load: lazy_load
                         %}
-                      {% endif %}
                       {%- when 'article' -%}
                         {% render 'article-card',
                           article: item,
