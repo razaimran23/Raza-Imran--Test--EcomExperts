@@ -262,7 +262,9 @@
                       {% endif %}
 
                       <cart-remove-button
-                        onclick="bundleCheck()"
+                      {% if item.title contains "Leather Bag - Black / Medium" %}
+                        onclick="remove()"
+                      {% endif %}
                         id="Remove-{{ item.index | plus: 1 }}"
                         data-index="{{ item.index | plus: 1 }}"
                       >
@@ -400,8 +402,7 @@ function renderSection() {
             });
             {% break %}
             {% else %}
-            document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();
-            // let formData_{{forloop.index}} = {
+          document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();            // let formData_{{forloop.index}} = {
             //    'updates': {
             //       '45062083412257': 0
             //     }
@@ -424,6 +425,9 @@ function renderSection() {
             {% endfor %}
   }
   bundleCheck()
+  function remove() {
+          document.querySelector(".cart-item[data-item='Soft Winter Jacket'] a.button").click();
+  }
   // window.addEventListener('DOMContentLoaded', function() {
   //     document.querySelectorAll('.quantity__input').forEach(item => {
   //     item.addEventListener('change', event => {
