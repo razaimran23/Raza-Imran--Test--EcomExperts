@@ -65,7 +65,7 @@
 {% endstyle %}
 <ul class="variant-information-ul" style=" display: none; ">
   {% for variant in product.variants %}
-    <li data-var-id="{{ variant.id }}" data-select-image="{{ variant.image | img_url: 'master' }}">{{ variant.title }}</li>
+    <li data-var-id="{{ variant.id }}" data-price="{{ product.price | money }}" data-select-image="{{ variant.image | img_url: 'master' }}">{{ variant.title }}</li>
   {% endfor %}
 </ul>
 <div class="product-options-selctor">
