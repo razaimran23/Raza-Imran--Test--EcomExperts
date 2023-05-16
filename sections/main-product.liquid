@@ -623,7 +623,7 @@
             
             li.classList.add("active-variant");
             let activeLI = document.querySelector(".active-variant");
-            let activePrice = activeLI.getAttribute("data-price");
+            let activePrice = document.querySelector("li.active-variant").getAttribute("data-price");
             document.querySelector(".price__regular .price-item--regular").innerText = activePrice;
             if (activeLI) {
                 let activeVarTitle = activeLI.innerText;
