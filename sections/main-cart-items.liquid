@@ -401,6 +401,17 @@
                           let item = document.querySelectorAll(".cart-item[data-item='Soft Winter Jacket']");
                           if (item.length) {
                             item[0].style.display = 'none';
+                              fetch("/cart.json")
+                              .then((data)=> {
+                                  return data.json();
+                              }).then((res)=>{
+                                  let count = res.item_count;
+                                  if (count === 0) {
+                                      document.querySelector(".cart__warnings").style.display = 'block';
+                                      document.querySelector("h1.cart__empty-text").style.display = 'block';
+                                      document.querySelector(".cart-count-bubble").style.display = 'none';
+                                  }
+                              })
                               clearInterval(itemCheck)
                           }
                       },500)
